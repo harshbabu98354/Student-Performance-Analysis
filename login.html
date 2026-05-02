@@ -1,41 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Student Performance System</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body class="landing-bg">
 
-<div class="landing-container">
+    <div class="landing-container">
+        <div class="landing-card">
+            <!-- Ensure this path is correct relative to your HTML file -->
+            <img src="images.jpg" alt="College Logo" class="landing-logo">
 
-    <div class="landing-card">
+            <h1>Student Performance System</h1>
+            <p>Keral Verma Subharti College Of Science</p>
 
-        <img src="images.jpg" class="landing-logo">
+            <div class="login-options">
+                <!-- Teacher Button -->
+                <button class="role-btn teacher-btn" onclick="location.href='teacher-login.html'">
+                    <i class="fas fa-chalkboard-teacher"></i> Teacher Login
+                </button>
 
-        <h1>Student Performance System</h1>
-        <p>Keral Verma Subharti College Of Science</p>
-
-        <div class="login-options">
-
-            <button class="role-btn teacher-btn"
-                onclick="window.location.href='teacher-login.html'">
-                <i class="fa fa-chalkboard-teacher"></i>
-                Teacher Login
-            </button>
-
-            <button class="role-btn student-btn"
-                onclick="window.location.href='student-login.html'">
-                <i class="fa fa-user-graduate"></i>
-                Student Login
-            </button>
-
+                <!-- Student Button (Fixed the syntax error here) -->
+                <button class="role-btn student-btn" onclick="location.href='student-login.html'">
+                    <i class="fas fa-user-graduate"></i> Student Login
+                </button>
+            </div>
         </div>
-
     </div>
-
-</div>
 
 </body>
 </html>

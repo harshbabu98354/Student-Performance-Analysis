@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Teacher Dashboard</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body class="dashboard-bg">
@@ -11,7 +13,7 @@
 <!-- HEADER -->
 <div class="top-bar">
     <div class="top-left">
-        <img src="images.jpg" class="top-logo">
+        <img src="images.jpg" class="top-logo" alt="Logo">
         <div>
             <h2>Keral Verma Subharti College Of Science</h2>
             <p>Department of Computer Science</p>
@@ -27,36 +29,34 @@
 <div class="dashboard-wrapper">
 
     <div class="card form-card">
-
         <h2><i class="fa fa-chart-line"></i> Student Performance Analysis</h2>
 
         <div class="modern-grid">
-
+            <!-- Added placeholder=" " so the CSS knows when to float the label up -->
             <div class="floating-input">
-                <input id="name" required>
+                <input id="name" placeholder=" " required autocomplete="off">
                 <label>Student Name</label>
             </div>
 
             <div class="floating-input">
-                <input id="maths" type="number" required>
+                <input id="maths" type="number" placeholder=" " required>
                 <label>Maths</label>
             </div>
 
             <div class="floating-input">
-                <input id="science" type="number" required>
+                <input id="science" type="number" placeholder=" " required>
                 <label>Science</label>
             </div>
 
             <div class="floating-input">
-                <input id="english" type="number" required>
+                <input id="english" type="number" placeholder=" " required>
                 <label>English</label>
             </div>
 
             <div class="floating-input">
-                <input id="computer" type="number" required>
+                <input id="computer" type="number" placeholder=" " required>
                 <label>Computer</label>
             </div>
-
         </div>
 
         <button class="primary-btn" onclick="analyze()">
@@ -66,7 +66,6 @@
         <button class="danger-btn" onclick="clearAll()">
             <i class="fa fa-trash"></i> Clear All Records
         </button>
-
     </div>
 
     <!-- TABLE -->
@@ -91,13 +90,15 @@
 
 <script>
 function logout(){
-localStorage.removeItem("currentTeacher");
-window.location="login.html";
+    localStorage.removeItem("currentTeacher");
+    window.location.href="teacher-login.html";
 }
 
 function clearAll(){
-localStorage.removeItem("students");
-location.reload();
+    if(confirm("Are you sure you want to delete all records?")) {
+        localStorage.removeItem("students");
+        location.reload();
+    }
 }
 </script>
 

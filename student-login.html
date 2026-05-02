@@ -1,124 +1,273 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
 
-<title>Student Login</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-<link rel="stylesheet" href="style.css">
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: var(--text-main);
+        }
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+        /* Animated Ambient Background */
+        .orb {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: move 20s infinite alternate;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        .orb-1 { background: #4338ca; top: -10%; left: -10%; }
+        .orb-2 { background: #7e22ce; bottom: -10%; right: -10%; animation-delay: -5s; }
 
+        @keyframes move {
+            from { transform: translate(0, 0); }
+            to { transform: translate(100px, 50px); }
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .login-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            padding: 2px;
+        }
+
+        .login-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            transition: 0.3s;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+        }
+
+        .input-group input:focus + i {
+            color: var(--primary);
+        }
+
+        .toggle-pass {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-dim);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .bottom-links {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .bottom-links p {
+            color: var(--text-dim);
+            margin-bottom: 8px;
+        }
+
+        .bottom-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .bottom-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
-<body class="login-bg">
+<body>
 
-<!-- animated background circles -->
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
 
-<div class="login-container">
+    <div class="login-container">
+        <div class="login-card">
+            <header class="login-header">
+                <img src="images.jpg" class="login-logo" alt="Logo">
+                <h2>Welcome Back</h2>
+                <p>Keral Verma Subharti College Of Science</p>
+            </header>
 
-<div class="login-card">
+            <div class="input-group">
+                <i class="fa fa-envelope"></i>
+                <input type="text" id="username" placeholder="Username" autocomplete="off">
+            </div>
 
-<div class="login-header">
+            <div class="input-group">
+                <i class="fa fa-lock"></i>
+                <input type="password" id="password" placeholder="Password">
+                <span class="toggle-pass" onclick="togglePassword()">
+                    <i class="fa fa-eye" id="eye"></i>
+                </span>
+            </div>
 
-<img src="images.jpg" class="login-logo">
+            <button class="login-btn" onclick="login()">
+                Sign In <i class="fa-solid fa-arrow-right"></i>
+            </button>
 
-<h2>Student Portal</h2>
+            <div class="bottom-links">
+                <p>New to the portal?</p>
+                <a href="student-register.html">Create a student account</a>
+            </div>
+        </div>
+    </div>
 
-<p>Keral Verma Subharti College Of Science</p>
+    <script>
+        function togglePassword(){
+            const pass = document.getElementById("password");
+            const eye = document.getElementById("eye");
+            const isPass = pass.type === "password";
+            
+            pass.type = isPass ? "text" : "password";
+            eye.className = isPass ? "fa fa-eye-slash" : "fa fa-eye";
+        }
 
-</div>
+        function login(){
+            const userVal = document.getElementById("username").value.trim();
+            const passVal = document.getElementById("password").value;
 
+            if(!userVal || !passVal) {
+                alert("Please fill in all fields.");
+                return;
+            }
 
-<div class="input-box">
+            const studentAccounts = JSON.parse(localStorage.getItem("studentAccounts")) || [];
+            const found = studentAccounts.find(s => s.username === userVal && s.password === passVal);
 
-<i class="fa fa-user"></i>
-
-<input type="text" id="username" placeholder="Username">
-
-</div>
-
-
-<div class="input-box">
-
-<i class="fa fa-lock"></i>
-
-<input type="password" id="password" placeholder="Password">
-
-<span class="toggle-pass" onclick="togglePassword()">
-<i class="fa fa-eye" id="eye"></i>
-</span>
-
-</div>
-</div>
-
-
-<button class="login-btn" onclick="login()">
-
-<i class="fa fa-right-to-bracket"></i>
-Login
-
-</button>
-
-
-<div class="bottom-links">
-
-<p>Don't have an account?</p>
-
-<a href="student-register.html">
-<i class="fa fa-user-plus"></i> Create Account
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-
-<script>
-
-function togglePassword(){
-
-let pass=document.getElementById("password");
-let eye=document.getElementById("eye");
-
-if(pass.type==="password"){
-pass.type="text";
-eye.classList.replace("fa-eye","fa-eye-slash");
-}else{
-pass.type="password";
-eye.classList.replace("fa-eye-slash","fa-eye");
-}
-
-}
-
-function login(){
-
-let students = JSON.parse(localStorage.getItem("students")) || [];
-
-let found = students.find(s =>
-s.username === username.value &&
-s.password === password.value
-);
-
-if(found){
-
-localStorage.setItem("currentStudent", username.value);
-window.location.href="student-dashboard.html";
-
-}else{
-
-alert("Invalid Login");
-
-}
-
-}
-
-</script>
-
+            if(found){
+                localStorage.setItem("currentStudent", userVal);
+                window.location.href = "student-dashboard.html";
+            } else {
+                alert("Invalid credentials. Please check your username and password.");
+            }
+        }
+    </script>
 </body>
 </html>
