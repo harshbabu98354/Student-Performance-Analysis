@@ -15,6 +15,10 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             color: #1F2937;
+            /* FIX: Overrides the hidden overflow from your style.css */
+            overflow-y: auto !important; 
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
         .top-nav {
@@ -25,6 +29,9 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .nav-brand {
@@ -63,6 +70,7 @@
             display: grid;
             grid-template-columns: 2.5fr 1fr; /* Split layout */
             gap: 25px;
+            padding-bottom: 60px; /* Added padding to the bottom so nothing gets cut off */
         }
 
         .welcome-header {
