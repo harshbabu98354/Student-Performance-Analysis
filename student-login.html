@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Student Login</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="login-bg">
+
+<!-- animated background circles -->
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<div class="login-container">
+
+<div class="login-card">
+
+<div class="login-header">
+
+<img src="images.jpg" class="login-logo">
+
+<h2>Student Portal</h2>
+
+<p>Keral Verma Subharti College Of Science</p>
+
+</div>
+
+
+<div class="input-box">
+
+<i class="fa fa-user"></i>
+
+<input type="text" id="username" placeholder="Username">
+
+</div>
+
+
+<div class="input-box">
+
+<i class="fa fa-lock"></i>
+
+<input type="password" id="password" placeholder="Password">
+
+<span class="toggle-pass" onclick="togglePassword()">
+<i class="fa fa-eye" id="eye"></i>
+</span>
+
+</div>
+</div>
+
+
+<button class="login-btn" onclick="login()">
+
+<i class="fa fa-right-to-bracket"></i>
+Login
+
+</button>
+
+
+<div class="bottom-links">
+
+<p>Don't have an account?</p>
+
+<a href="student-register.html">
+<i class="fa fa-user-plus"></i> Create Account
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function togglePassword(){
+
+let pass=document.getElementById("password");
+let eye=document.getElementById("eye");
+
+if(pass.type==="password"){
+pass.type="text";
+eye.classList.replace("fa-eye","fa-eye-slash");
+}else{
+pass.type="password";
+eye.classList.replace("fa-eye-slash","fa-eye");
+}
+
+}
+
+function login(){
+
+let students = JSON.parse(localStorage.getItem("students")) || [];
+
+let found = students.find(s =>
+s.username === username.value &&
+s.password === password.value
+);
+
+if(found){
+
+localStorage.setItem("currentStudent", username.value);
+window.location.href="student-dashboard.html";
+
+}else{
+
+alert("Invalid Login");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

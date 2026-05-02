@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Login | Student Performance System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="premium-bg">
+
+<div class="premium-container animate-slide-up">
+
+    <div class="premium-left">
+        <div class="branding-content">
+            <img src="images.jpg" class="premium-logo animate-pulse" alt="University Logo">
+            <h1>Welcome Back</h1>
+            <div class="divider"></div>
+            <p class="college-name">Keral Verma Subharti College Of Science</p>
+            <p class="dept-name">Department of Computer Science</p>
+        </div>
+    </div>
+
+    <div class="premium-right">
+
+        <div class="form-box">
+            <div class="form-header">
+                <i class="fa fa-chalkboard-teacher teacher-icon"></i>
+                <h2>Teacher Login</h2>
+                <p>Enter your credentials to access the dashboard</p>
+            </div>
+
+            <div class="floating-group">
+                <i class="fa fa-user"></i>
+                <input type="text" id="username" placeholder=" " required>
+                <label>Username</label>
+            </div>
+
+            <div class="floating-group">
+                <i class="fa fa-lock"></i>
+                <input type="password" id="password" placeholder=" " required>
+                <label>Password</label>
+            </div>
+
+            <button class="premium-btn" onclick="login()">
+                <span>Login</span>
+                <i class="fa fa-arrow-right"></i>
+            </button>
+
+            <div class="register-link">
+                <p>New here? <span onclick="location.href='teacher-register.html'">Create New Account</span></p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function login(){
+    let user = localStorage.getItem("teacherUser");
+    let pass = localStorage.getItem("teacherPass");
+
+    if(username.value === user && password.value === pass){
+        localStorage.setItem("currentTeacher", username.value);
+        // Add a small delay for a smoother transition
+        document.querySelector('.premium-container').classList.add('fade-out');
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 500);
+    } else {
+        // Simple shake animation on error
+        const box = document.querySelector('.form-box');
+        box.classList.add('shake');
+        setTimeout(() => box.classList.remove('shake'), 500);
+        alert("Invalid Login Credentials");
+    }
+}
+</script>
+
+</body>
+</html>

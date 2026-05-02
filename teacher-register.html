@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Teacher Register</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+<h2>👨‍🏫 Teacher Register</h2>
+
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="register()">Register</button>
+<span class="link" onclick="location.href='teacher-login.html'">Already have account?</span>
+</div>
+
+<script>
+function register(){
+if(username.value==="" || password.value===""){
+alert("Fill all fields");
+return;
+}
+
+localStorage.setItem("teacherUser",username.value);
+localStorage.setItem("teacherPass",password.value);
+
+alert("Account Created");
+location.href="teacher-login.html";
+}
+</script>
+
+</body>
+</html>

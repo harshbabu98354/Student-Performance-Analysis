@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Security Answer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-box">
+    <h2>Change Security Answer</h2>
+
+    <input type="text" id="newAns" placeholder="Enter New Security Answer">
+    <button onclick="saveAns()">Save</button>
+    <button onclick="back()">Back</button>
+</div>
+
+<script>
+function saveAns(){
+    if(newAns.value===""){
+        alert("Enter Security Answer");
+        return;
+    }
+    localStorage.setItem("securityAnswer", newAns.value);
+    alert("Security Answer Saved");
+    window.location="login.html";
+}
+function back(){
+    window.location="login.html";
+}
+</script>
+
+</body>
+</html>

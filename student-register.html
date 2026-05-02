@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Register</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+<h2>👨‍🎓 Student Register</h2>
+
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="register()">Register</button>
+<span class="link" onclick="location.href='student-login.html'">Already have account?</span>
+</div>
+
+<script>
+function register(){
+let students=JSON.parse(localStorage.getItem("students"))||[];
+
+students.push({
+username:username.value,
+password:password.value
+});
+
+localStorage.setItem("students",JSON.stringify(students));
+
+alert("Account Created");
+location.href="student-login.html";
+}
+</script>
+
+</body>
+</html>
