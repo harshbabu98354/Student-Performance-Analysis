@@ -1,26 +1,463 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Student Dashboard</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | Performance Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Modern Pro Dashboard Styles - Zero Lag */
+        body {
+            background-color: #F3F4F6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            color: #1F2937;
+        }
+
+        .top-nav {
+            background: #ffffff;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-brand img {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .nav-brand h2 { margin: 0; font-size: 18px; color: #111827; }
+        .nav-brand p { margin: 0; font-size: 13px; color: #6B7280; }
+
+        .btn-danger {
+            background: #FEE2E2;
+            color: #EF4444;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-danger:hover { background: #FECACA; color: #DC2626; }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2.5fr 1fr; /* Split layout */
+            gap: 25px;
+        }
+
+        .welcome-header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .welcome-header h1 { margin: 0; font-size: 28px; color: #111827; }
+        .welcome-header p { margin: 5px 0 0 0; color: #6B7280; font-size: 15px; }
+
+        .btn-print {
+            background: #4F46E5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-print:hover { background: #4338CA; }
+
+        /* Stats Grid */
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-card .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .icon-blue { background: #E0E7FF; color: #4F46E5; }
+        .icon-green { background: #DCFCE7; color: #10B981; }
+        .icon-purple { background: #FAE8FF; color: #C026D3; }
+        .icon-orange { background: #FFEDD5; color: #F97316; }
+
+        .stat-card h4 { margin: 0; color: #6B7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;}
+        .stat-card .value { margin: 0; font-size: 24px; font-weight: 700; color: #111827; }
+
+        /* Panels */
+        .panel {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 20px;
+            border-bottom: 1px solid #E5E7EB;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #F9FAFB;
+        }
+
+        /* Table & Progress Bars */
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 15px 20px; color: #6B7280; font-size: 13px; text-transform: uppercase; background: #ffffff; border-bottom: 2px solid #E5E7EB;}
+        td { padding: 15px 20px; border-bottom: 1px solid #E5E7EB; font-weight: 500; }
+        tr:last-child td { border-bottom: none; }
+
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Notice Board */
+        .notice-list {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notice-item {
+            padding: 15px;
+            border-radius: 10px;
+            background: #F8FAFC;
+            border-left: 4px solid #4F46E5;
+        }
+
+        .notice-item h5 { margin: 0 0 5px 0; font-size: 14px; color: #111827; }
+        .notice-item p { margin: 0; font-size: 13px; color: #6B7280; }
+        .notice-item span { display: block; margin-top: 8px; font-size: 11px; color: #9CA3AF; }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+        }
+        .empty-state i { font-size: 50px; color: #D1D5DB; margin-bottom: 15px; }
+        .empty-state h3 { margin: 0 0 10px 0; color: #111827; }
+        .empty-state p { margin: 0; color: #6B7280; }
+
+        /* Print Media Query */
+        @media print {
+            body { background: white; }
+            .top-nav, .btn-print, .notice-panel { display: none !important; }
+            .dashboard-container { grid-template-columns: 1fr; margin: 0; padding: 0; }
+            .panel { box-shadow: none; border: 1px solid #000; }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .dashboard-container { grid-template-columns: 1fr; }
+            .score-grid { grid-template-columns: repeat(2, 1fr); }
+            .welcome-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+        }
+    </style>
 </head>
 <body>
 
-<h2>Student Dashboard</h2>
-<div id="result"></div>
+    <!-- TOP NAV -->
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <img src="images.jpg" alt="Logo">
+            <div>
+                <h2>Student Portal</h2>
+                <p>Keral Verma Subharti College Of Science</p>
+            </div>
+        </div>
+        <button class="btn-danger" onclick="logout()">
+            <i class="fa fa-sign-out-alt"></i> Sign Out
+        </button>
+    </nav>
 
-<script>
-let current=localStorage.getItem("currentStudent");
-let results=JSON.parse(localStorage.getItem("results"))||[];
+    <!-- MAIN CONTAINER -->
+    <div class="dashboard-container">
 
-let data=results.find(r=>r.username===current);
+        <div class="welcome-header">
+            <div>
+                <h1 id="welcome-message">Welcome back, Student!</h1>
+                <p>Here is your detailed academic performance report.</p>
+            </div>
+            <!-- Download Button -->
+            <button class="btn-print" id="print-btn" style="display: none;" onclick="window.print()">
+                <i class="fa fa-print"></i> Print Report
+            </button>
+        </div>
 
-if(data){
-result.innerHTML="Your Marks: "+data.marks;
-}else{
-result.innerHTML="No Result Found";
-}
-</script>
+        <!-- PANEL FOR NO RESULTS -->
+        <div id="no-data-container" class="empty-state">
+            <i class="fa fa-folder-open"></i>
+            <h3>No Results Found</h3>
+            <p>Your faculty has not uploaded any performance data for your account yet.</p>
+        </div>
+
+        <!-- MAIN DATA AREA (Hidden by default until data is found) -->
+        <div id="result-container" style="display: none; display: contents;">
+            
+            <div class="main-content">
+                <!-- QUICK STATS -->
+                <div class="score-grid">
+                    <div class="stat-card">
+                        <div class="icon-wrapper icon-blue"><i class="fa fa-bullseye"></i></div>
+                        <h4>Total Marks</h4>
+                        <p class="value" id="disp-total">0/400</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-wrapper icon-purple"><i class="fa fa-percent"></i></div>
+                        <h4>Percentage</h4>
+                        <p class="value" id="disp-percent">0%</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-wrapper icon-orange"><i class="fa fa-award"></i></div>
+                        <h4>Letter Grade</h4>
+                        <p class="value" id="disp-grade">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-wrapper icon-green" id="status-icon"><i class="fa fa-check-circle"></i></div>
+                        <h4>Status</h4>
+                        <p class="value" id="disp-status" style="color: #10B981;">Pass</p>
+                    </div>
+                </div>
+
+                <!-- SUBJECT BREAKDOWN -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <i class="fa fa-book-open" style="color: #4F46E5;"></i> Subject Analysis
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Marks Obtained</th>
+                                <th>Performance Indicator</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fa fa-calculator text-muted"></i> Mathematics</td>
+                                <td><strong id="disp-maths">0</strong> / 100</td>
+                                <td>
+                                    <div class="progress-track">
+                                        <div class="progress-fill" id="bar-maths" style="background: #3B82F6; width: 0%;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-flask text-muted"></i> Science</td>
+                                <td><strong id="disp-science">0</strong> / 100</td>
+                                <td>
+                                    <div class="progress-track">
+                                        <div class="progress-fill" id="bar-science" style="background: #10B981; width: 0%;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-spell-check text-muted"></i> English</td>
+                                <td><strong id="disp-english">0</strong> / 100</td>
+                                <td>
+                                    <div class="progress-track">
+                                        <div class="progress-fill" id="bar-english" style="background: #F59E0B; width: 0%;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-laptop-code text-muted"></i> Computer Science</td>
+                                <td><strong id="disp-computer">0</strong> / 100</td>
+                                <td>
+                                    <div class="progress-track">
+                                        <div class="progress-fill" id="bar-computer" style="background: #8B5CF6; width: 0%;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SIDEBAR / NOTICES -->
+            <div class="notice-panel">
+                <div class="panel">
+                    <div class="panel-header">
+                        <i class="fa fa-bell" style="color: #F59E0B;"></i> Academic Notices
+                    </div>
+                    <div class="notice-list">
+                        <div class="notice-item">
+                            <h5>Report Cards Published</h5>
+                            <p>Final semester results have been updated. Please verify your marks.</p>
+                            <span>Today</span>
+                        </div>
+                        <div class="notice-item" style="border-left-color: #10B981;">
+                            <h5>Upcoming Holidays</h5>
+                            <p>The college will remain closed next Monday for public holidays.</p>
+                            <span>2 days ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End of Result Container -->
+
+    </div>
+
+    <script>
+        // 1. Security check - redirect if not logged in
+        const currentStudent = localStorage.getItem("currentStudent");
+        if (!currentStudent) {
+            window.location.href = "student-login.html";
+        }
+
+        // 2. Personalize the welcome message
+        document.getElementById("welcome-message").innerText = `Welcome back, ${currentStudent}!`;
+
+        // 3. Fetch data from Teacher's database key
+        const allRecords = JSON.parse(localStorage.getItem("students")) || [];
+        const studentData = allRecords.find(r => r.name.toLowerCase() === currentStudent.toLowerCase());
+
+        const resultContainer = document.getElementById("result-container");
+        const noDataContainer = document.getElementById("no-data-container");
+        const printBtn = document.getElementById("print-btn");
+
+        if (studentData) {
+            // Show the UI
+            resultContainer.style.display = "contents"; // keeps grid layout intact
+            noDataContainer.style.display = "none";
+            printBtn.style.display = "flex";
+
+            // Parse subject marks
+            const m = parseInt(studentData.maths) || 0;
+            const s = parseInt(studentData.science) || 0;
+            const e = parseInt(studentData.english) || 0;
+            const c = parseInt(studentData.computer) || 0;
+
+            // Update Text Values
+            document.getElementById("disp-maths").innerText = m;
+            document.getElementById("disp-science").innerText = s;
+            document.getElementById("disp-english").innerText = e;
+            document.getElementById("disp-computer").innerText = c;
+
+            // Animate Progress Bars (Width percentage equals the mark out of 100)
+            setTimeout(() => {
+                document.getElementById("bar-maths").style.width = m + "%";
+                document.getElementById("bar-science").style.width = s + "%";
+                document.getElementById("bar-english").style.width = e + "%";
+                document.getElementById("bar-computer").style.width = c + "%";
+            }, 300); // Small delay to allow CSS transition to trigger
+
+            // Calculate Totals
+            const total = m + s + e + c;
+            const percentage = (total / 400) * 100;
+            
+            // Calculate Letter Grade
+            let grade = "F";
+            if(percentage >= 90) grade = "A+";
+            else if(percentage >= 80) grade = "A";
+            else if(percentage >= 70) grade = "B";
+            else if(percentage >= 60) grade = "C";
+            else if(percentage >= 50) grade = "D";
+
+            const status = percentage >= 33 ? "Pass" : "Fail";
+
+            // Update Stat Cards
+            document.getElementById("disp-total").innerText = `${total} / 400`;
+            document.getElementById("disp-percent").innerText = `${percentage.toFixed(1)}%`;
+            document.getElementById("disp-grade").innerText = grade;
+            
+            const statusEl = document.getElementById("disp-status");
+            const statusIconEl = document.getElementById("status-icon");
+
+            statusEl.innerText = status;
+            
+            // Color code the Pass/Fail status
+            if (status === "Pass") {
+                statusEl.style.color = "#10B981"; // Green
+                statusIconEl.className = "icon-wrapper icon-green";
+                statusIconEl.innerHTML = '<i class="fa fa-check-circle"></i>';
+            } else {
+                statusEl.style.color = "#EF4444"; // Red
+                statusIconEl.className = "icon-wrapper icon-red";
+                statusIconEl.style.background = "#FEE2E2";
+                statusIconEl.style.color = "#EF4444";
+                statusIconEl.innerHTML = '<i class="fa fa-times-circle"></i>';
+            }
+
+        } else {
+            // No Data
+            resultContainer.style.display = "none";
+            noDataContainer.style.display = "block";
+            printBtn.style.display = "none";
+        }
+
+        // 5. Logout Function
+        function logout() {
+            localStorage.removeItem("currentStudent");
+            window.location.href = "student-login.html";
+        }
+    </script>
 
 </body>
 </html>

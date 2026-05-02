@@ -259,10 +259,16 @@
             }
 
             const studentAccounts = JSON.parse(localStorage.getItem("studentAccounts")) || [];
-            const found = studentAccounts.find(s => s.username === userVal && s.password === passVal);
+            
+            // Fixed: Added .toLowerCase() to make the username check case-insensitive
+            const found = studentAccounts.find(s => 
+                s.username.toLowerCase() === userVal.toLowerCase() && 
+                s.password === passVal
+            );
 
             if(found){
-                localStorage.setItem("currentStudent", userVal);
+                // Fixed: Saves the exact casing the user registered with
+                localStorage.setItem("currentStudent", found.username);
                 window.location.href = "student-dashboard.html";
             } else {
                 alert("Invalid credentials. Please check your username and password.");

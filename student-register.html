@@ -9,7 +9,7 @@
     
     <style>
         :root {
-            --primary: #10b981; /* Green theme for Registration to distinguish from Login */
+            --primary: #10b981;
             --primary-hover: #059669;
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
             --glass: rgba(255, 255, 255, 0.03);
@@ -222,38 +222,36 @@
 
     <script>
         function register() {
-            const userBox = document.getElementById("username");
-            const passBox = document.getElementById("password");
-            
-            const username = userBox.value.trim();
-            const password = passBox.value;
+            // Trim removes any accidental spaces at the end of the username
+            let userVal = document.getElementById("username").value.trim();
+            let passVal = document.getElementById("password").value;
 
-            if (!username || !password) {
+            if (userVal === "" || passVal === "") {
                 alert("Please fill in all fields.");
                 return;
             }
 
-            // Note: Using 'studentAccounts' to match your login page logic
-            let students = JSON.parse(localStorage.getItem("studentAccounts")) || [];
+            // Using 'studentAccounts' to perfectly match your login page
+            let studentAccounts = JSON.parse(localStorage.getItem("studentAccounts")) || [];
 
             // Check if user already exists
-            const exists = students.some(s => s.username.toLowerCase() === username.toLowerCase());
+            let exists = studentAccounts.find(s => s.username === userVal);
             
             if (exists) {
                 alert("This username is already taken. Try another.");
                 return;
             }
 
-            // Add new student
-            students.push({
-                username: username,
-                password: password
+            // Save credentials
+            studentAccounts.push({
+                username: userVal,
+                password: passVal
             });
 
-            localStorage.setItem("studentAccounts", JSON.stringify(students));
+            localStorage.setItem("studentAccounts", JSON.stringify(studentAccounts));
 
             alert("Account successfully created!");
-            location.href = "student-login.html";
+            window.location.href = "student-login.html";
         }
     </script>
 </body>
